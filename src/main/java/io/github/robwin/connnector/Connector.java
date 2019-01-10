@@ -9,5 +9,11 @@ public interface Connector {
 
     String ignoreException();
 
+    String getLimitedResource();
+
+    String getHeavyResource(String resourceId);
+
+    String getIntermittentResource();
+
     Observable<String> methodWhichReturnsAStream();
 }

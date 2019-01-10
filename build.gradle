@@ -39,9 +39,14 @@ dependencies {
 	compile("io.github.resilience4j:resilience4j-metrics:${resilience4jVersion}") // Optional
 	compile("io.github.resilience4j:resilience4j-prometheus:${resilience4jVersion}") // Optional
 	compile("io.github.resilience4j:resilience4j-rxjava2:${resilience4jVersion}") // Optional
+	compile("io.github.resilience4j:resilience4j-cache:${resilience4jVersion}")
+	compile("io.github.resilience4j:resilience4j-retry:${resilience4jVersion}")
 	compile('io.prometheus:simpleclient_spring_boot:0.0.21') // Optional
 	compile("io.vavr:vavr-jackson:0.9.1")
 	compile("net.logstash.logback:logstash-logback-encoder:4.7")
+
+	compile("org.ehcache:ehcache")
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

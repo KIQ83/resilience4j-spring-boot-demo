@@ -1,5 +1,6 @@
 package io.github.robwin.service;
 
+import io.github.resilience4j.retry.Retry;
 import io.github.robwin.connnector.Connector;
 import io.vavr.control.Try;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +28,21 @@ public class BusinessAService implements BusinessService {
     @Override
     public String ignore() {
         return backendAConnector.ignoreException();
+    }
+
+    @Override
+    public String getLimitedResource() {
+        return backendAConnector.getLimitedResource();
+    }
+
+    @Override
+    public String getHeavyResource(String resourceId) {
+        return backendAConnector.getHeavyResource(resourceId);
+    }
+
+    @Override
+    public String getIntermittentResource() {
+        return backendAConnector.getIntermittentResource();
     }
 
     @Override

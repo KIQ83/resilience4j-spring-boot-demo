@@ -10,5 +10,11 @@ public interface BusinessService {
 
     String ignore();
 
+    String getLimitedResource();
+
+    String getHeavyResource(String resourceId);
+
+    String getIntermittentResource();
+
     Try<String> methodWithRecovery();
 }

@@ -2,7 +2,9 @@ package io.github.robwin.controller;
 
 import io.github.robwin.service.BusinessService;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class BackendAController {
 
     private final BusinessService businessAService;
+    private final HealthIndicator circuitBreakerHealth;
 
-    public BackendAController(@Qualifier("businessAService") BusinessService businessAService){
+    public BackendAController(@Qualifier("businessAService") BusinessService businessAService,
+                              @Qualifier("backendA") HealthIndicator healthIndicator){
         this.businessAService = businessAService;
+        this.circuitBreakerHealth = healthIndicator;
     }
 
     @GetMapping("failure")
@@ -35,4 +40,20 @@ public class BackendAController {
     public String methodWithRecovery(){
         return businessAService.methodWithRecovery().get();
     }
+
+    @GetMapping("health")
+    public String health() {
+        return circuitBreakerHealth.health().toString();
+    }
+
+    @GetMapping("getHeavyResource/{resourceId}")
+    public String heavyResource(@PathVariable("resourceId") String resourceId) {
+        return businessAService.getHeavyResource(resourceId);
+    }
+
+    @GetMapping("getIntermittentResource")
+    public String heavyResource() {
+        return businessAService.getIntermittentResource();
+    }
+
 }
